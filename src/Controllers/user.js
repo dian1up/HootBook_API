@@ -1,5 +1,6 @@
 const userModel = require('../Models/user')
 const cache = require('../Configs/redis')
+require('dotenv').config()
 
 const hash = (string) => {
     const crypto = require('crypto-js')
@@ -8,6 +9,45 @@ const hash = (string) => {
   }
   
 module.exports={
+    loginPartner:(req,res) => {
+        const data = req.body
+
+        data.password = hash(data.password)
+        userModel.loginPartner(data)
+            .then(result=>{
+                if (result.length !== 0) {
+                    console.log(result);
+                    const jwt = require('jsonwebtoken')
+                    const payload = {
+                      name: result[0].name,
+                      email: result[0].email,
+                      level: 'partner',
+                    }
+                    jwt.sign(payload, process.env.SECRET,(err, result)=>{
+                        if (!err) {
+                            return res.status(200).json({
+                                    message:'Login successful',
+                                    token:`Bearer ${result}`
+                                })
+                            
+       
+                        } else {
+                            return res.status(500).json({
+                                message: err
+                            })
+                        }
+  
+                    })
+  
+                }else{
+                    return res.status(500).json({
+                        message: "Email or Password is Wrong"
+                    })
+                }
+                
+            }).catch(err=>res.send(err))
+    },
+
     registerPartner:(req, res) => {
         const data = req.body
         
