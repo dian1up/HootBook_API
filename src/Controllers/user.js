@@ -53,5 +53,29 @@ module.exports={
                     .catch(err => console.log(err))
             }
         });
-      },
+    },
+    registerUser: (req, res) => {
+        const userData = {
+            name: req.body.name,
+            password: req.body.password,
+            email: req.body.email,
+            created_at: new Date()
+        }
+        userModel.cekUser(userData.email)
+            .then(result =>{
+                if(result.length !== 0) {
+                    return res.status(409).json({message:'Email already registered'})
+                }
+                userData.password = hash(userData.password)
+                userModel.registerUser(userData)
+                .then(result => {
+                    console.log(result)
+                    return res.status(201).json({message: 'Success registering new user'})
+                })
+                .catch(err =>{
+                    console.error(err)
+                    return res.status(500).json({message:err})
+                })
+            })
+    },
 }
