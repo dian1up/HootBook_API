@@ -12,4 +12,18 @@ module.exports={
           })
         })
       },
+    registerUser: (data) => {
+      return new Promise((resolve, reject) => {
+        conn.query('INSERT users SET ?', data, (err, result) => {
+          if (err) { reject(err) } else { resolve(result) }
+        })
+      })
+    },
+    cekUser:(email) =>{
+      return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM users WHERE email = ?', email, (err, result) => {
+          if (err) { reject(err) } else { resolve(result) }
+        })
+      })
+    }
 }
