@@ -10,4 +10,5 @@ route
     .post('/login/user', userController.loginUser)
     .get('/services/:id',serviceController.getServices)
     .post('/services',serviceController.insertServices)
+    .delete('/services/:id',serviceController.deleteServices)
 module.exports = route

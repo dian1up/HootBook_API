@@ -27,5 +27,16 @@ module.exports={
                 }
             })
         })
+    },
+    deleteServices:(data)=>{
+        return new Promise((resolve, reject)=>{
+            conn.query(`DELETE FROM services WHERE ?`, data, (err, result)=>{
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(err)
+                }
+            })
+        })
     }
 }
