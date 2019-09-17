@@ -3,5 +3,5 @@ const route = express.Router()
 const userController = require('../Controllers/user')
 const auth = require('../Middlewares/auth')
 route
-    .get('/',userController.getBook)
+    .post('/register/partner',userController.registerPartner)
 module.exports = route
