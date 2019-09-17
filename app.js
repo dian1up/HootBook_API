@@ -7,11 +7,13 @@ const logger = require('morgan')
 const cors = require('cors')
 const path = require('path')
 
+
 // const cloudinaryConfig = require('./src/configs/cloudinaryConfig').cloudinaryConfig
 
 const PORT = process.env.PORT || 3306
 const routes = require('./src/Routes/routes')
 app.use(cors())
+
 // app.use(express.static(path.resolve(__dirname, 'src/public')));
 app.listen(PORT, () => {
   console.log(`Server is running at PORT ${PORT}`)
