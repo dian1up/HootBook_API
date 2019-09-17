@@ -45,7 +45,11 @@ module.exports={
                     })
                 }
                 
-            }).catch(err=>res.send(err))
+            }).catch(err=>{
+                return res.status(500).json({
+                    message: err
+                })
+            })
     },
 
     registerPartner:(req, res) => {
