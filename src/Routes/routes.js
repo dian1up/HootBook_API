@@ -5,4 +5,5 @@ const auth = require('../Middlewares/auth')
 route
     .get('/',userController.getBook)
     .post('/register/user', userController.registerUser)
+    .post('/login/user', userController.loginUser)
 module.exports = route

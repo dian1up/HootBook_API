@@ -25,5 +25,12 @@ module.exports={
           if (err) { reject(err) } else { resolve(result) }
         })
       })
+    },
+    loginUser:(email, password) =>{
+      return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM users WHERE email = ? AND password = ?', [email,password], (err, result) => {
+          if (err) { reject(err) } else { resolve(result) }
+        })
+      })
     }
 }
