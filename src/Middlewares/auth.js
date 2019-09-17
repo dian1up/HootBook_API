@@ -7,7 +7,7 @@ module.exports = {
       const bearer = bearerHeader.split(' ')
       const token = bearer[1]
       try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const decoded = jwt.verify(token, process.env.SECRET)
         if (decoded) {
           console.log(decoded)
           req.user_id = decoded.id
@@ -18,14 +18,10 @@ module.exports = {
         } else { throw new Error(decoded) }
       } catch (err) {
         console.error(err)
-        res.sendStatus(403)
+        res.status(403).json({message:'token is invalid'})
       }
     } else { 
-      res.sendStatus(403) }
-  },
-  verifyAdminPrevilege: (req, res, next) => {
-    if (req.level === 'admin') { next() } else { 
-      res.sendStatus(403) 
+      res.status(403).json({message:'token is undefined'})
     }
-  }
+  },
 }
