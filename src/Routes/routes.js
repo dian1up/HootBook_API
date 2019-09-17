@@ -6,5 +6,6 @@ route
     .post('/register/partner',userController.registerPartner)
     .get('/',userController.getBook)
     .post('/register/user', userController.registerUser)
+    .post('/login/partner',userController.loginPartner)
     .post('/login/user', userController.loginUser)
 module.exports = route
