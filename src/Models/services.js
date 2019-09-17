@@ -1,0 +1,31 @@
+const conn = require('../Configs/db')
+
+module.exports={
+    getServices:(data)=>{
+        console.log('hai = ',data);
+        
+        return new Promise((resolve, reject)=>{
+            conn.query(`SELECT services.*, partners.company as company,\
+                        partners.email as email, partners.latitude as latitude,\
+                        partners.longitude as longitude FROM partners,services\
+                        WHERE partners.id=services.hotel_id AND partners.id=?`, data.id, (err, result)=>{
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(err)
+                }
+            })
+        })
+    },
+    insertServices:(data)=>{
+        return new Promise((resolve, reject)=>{
+            conn.query(`INSERT INTO services SET ?`, data, (err,result)=>{
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(err)
+                }
+            })
+        })
+    }
+}
