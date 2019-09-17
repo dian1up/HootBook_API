@@ -118,4 +118,32 @@ module.exports={
                 })
             })
     },
+    loginUser:(req,res) => {
+        userModel.loginUser(req.body.email, hash(req.body.password))
+            .then(result => {
+                if(result.length !== 0){
+                    const payload = {
+                        id: result[0].id,
+                        name: result[0].name,
+                        email: result[0].email,
+                        level: 'user',
+                    }
+                    const jwt = require('jsonwebtoken')
+                    jwt.sign(payload, process.env.SECRET, (err, token) => {
+                        if (err) {
+                          console.error(err)
+                        }
+                        res.json({ 
+                            token: `Bearer ${token}`,
+                            message: 'Login successfull'
+                        })
+                      })
+                    } else { return responses.dataManipulationResponse(res, 404, 'Email or password is wrong') }
+                }
+            )
+            .catch(err => {
+                console.error(err)
+                return res.status(500).json({message:err})
+            })
+    }
 }
