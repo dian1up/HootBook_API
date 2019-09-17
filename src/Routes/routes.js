@@ -17,4 +17,5 @@ route
     .post('/services', auth.verifyTokenMiddleware,serviceController.insertServices)
     .delete('/services/:id', auth.verifyTokenMiddleware,serviceController.deleteServices)
     .patch('/services', auth.verifyTokenMiddleware,serviceController.updateServices)
+    .patch('/user/:id', userController.updateUser)
 module.exports = route

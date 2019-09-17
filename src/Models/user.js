@@ -57,5 +57,12 @@ module.exports={
           if (err) { reject(err) } else { resolve(result) }
         })
       })
-    }
+    },
+    updateUser: (id, data) => {
+      return new Promise((resolve, reject) => {
+        conn.query('UPDATE users SET ? WHERE id = ?', [data, id], (err, result) => {
+          if (err) { reject(err) } else { resolve(result) }
+        })
+      })
+    },
 }
