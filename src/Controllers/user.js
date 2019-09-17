@@ -16,8 +16,8 @@ module.exports={
             .then(result=>{
                 if(result.length === 0) {
                     return userModel.registerPartner(data)
-                        .then(result=>res.status(200).send({message:'Register successful'}))
-                        .catch(err=>res.send(err))
+                        .then(result=>res.status(200).json({message:'Register successful'}))
+                        .catch(err=>res.status(500).json({message:err}))
                 }else{
                     return res.status(403).json({
                         message:'email already taken'
@@ -26,7 +26,7 @@ module.exports={
             })
             
             
-            .catch(err=>res.send(err))
+            .catch(err=>res.status(500).json({message:err}))
             
     },
     getBook: (req, res) => {

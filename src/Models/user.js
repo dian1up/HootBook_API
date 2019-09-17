@@ -14,7 +14,7 @@ module.exports={
     },
     registerPartner:(data)=>{
       return new Promise((resolve, reject)=>{
-        conn.query('INSERT INTO partners SET ?', data, (err,result)=>{
+        conn.query('INSERT INTO partner SET ?', data, (err,result)=>{
           if (!err) {
             resolve(result)
           } else {
