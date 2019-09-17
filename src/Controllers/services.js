@@ -44,5 +44,15 @@ module.exports={
             .catch(()=>res.status(500).json({
                 message:'Delete Error'
             }))
-    }
+    },
+    updateServices:(req, res) => {
+        const data = req.body
+        serviceModel.updateServices(data)
+            .then(()=>res.status(200).json({
+                message:'Update Successful'
+            }))
+            .catch(()=>res.status(500).json({
+                message:'Update Error'
+            }))
+    },
 }

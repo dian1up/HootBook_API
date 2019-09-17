@@ -38,5 +38,16 @@ module.exports={
                 }
             })
         })
+    },
+    updateServices:(data)=>{
+        return new Promise((resolve, reject)=>{
+            conn.query(`UPDATE services SET ? WHERE id=?`, [data, data.id], (err, result)=>{
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(err)
+                }
+            })
+        })
     }
 }

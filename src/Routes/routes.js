@@ -11,4 +11,5 @@ route
     .get('/services/:id',serviceController.getServices)
     .post('/services',serviceController.insertServices)
     .delete('/services/:id',serviceController.deleteServices)
+    .patch('/services',serviceController.updateServices)
 module.exports = route
