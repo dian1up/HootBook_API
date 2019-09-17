@@ -51,7 +51,6 @@ module.exports={
                 })
             })
     },
-
     registerPartner:(req, res) => {
         const data = req.body
         
@@ -142,7 +141,7 @@ module.exports={
                             message: 'Login successfull'
                         })
                       })
-                    } else { return responses.dataManipulationResponse(res, 404, 'Email or password is wrong') }
+                    } else { return res.status(404).json({message: 'Email or Password is wrong'}) }
                 }
             )
             .catch(err => {
