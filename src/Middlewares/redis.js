@@ -14,5 +14,19 @@ module.exports = {
     }else{
       next()
     }
+  },
+  getBookings : (req, res, next) =>{
+    if(cache.hexists('bookings', 'all')){
+      console.log('cache');
+      cache.hget('bookings', 'all', (err,reply) =>{
+        if(reply){
+          return res.status(200).json(JSON.parse(reply))
+        }else{
+          next()
+        }
+      })
+    }else{
+      next()
+    }
   }
 }

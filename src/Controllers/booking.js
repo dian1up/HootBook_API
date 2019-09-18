@@ -2,6 +2,24 @@ require('dotenv').config()
 const cache = require('../Configs/redis')
 const bookingModel = require('../Models/booking')
 
+refreshCache = () =>{
+  bookingModel.getAllBookings()
+    .then(result => {
+      let data = result.map(booking => {
+        let durationMilis = new Date(booking.check_out) - new Date(booking.check_in)
+        let days = durationMilis / (1000*60*60*24) + 1
+        booking.totalPayment = booking.price * days
+        return booking
+      })
+      const response = {
+        message: `get all bookings`,
+        data
+      }
+      cache.hset('bookings', 'all', JSON.stringify(response))
+    })
+    .catch(err => console.log(err))
+}
+
 module.exports = {
   book : (req, res) => {
     const data = {
@@ -18,6 +36,7 @@ module.exports = {
           message: 'Booked successfully',
           data, 
         }
+        refreshCache()
         return res.status(201).json(response)
       })
       .catch(err => {
@@ -58,6 +77,7 @@ module.exports = {
           message: `get all bookings`,
           data
         }
+        cache.hset('bookings', 'all', JSON.stringify(response))
         return res.status(200).json(response)
       })
       .catch(err => {
@@ -76,6 +96,7 @@ module.exports = {
             message : 'Check out success',
             data
           }
+          refreshCache()
           return res.status(200).json(response)
         } else {
           data.bookingId = req.params.bookingId

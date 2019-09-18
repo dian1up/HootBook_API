@@ -12,7 +12,7 @@ route
     .post('/login/user', userController.loginUser)
     .post('/booking', auth.verifyTokenMiddleware, bookingController.book)
     .patch('/booking/:bookingId', auth.verifyTokenMiddleware, bookingController.checking_out)
-    .get('/booking/', auth.verifyTokenMiddleware, bookingController.getAllBookings)
+    .get('/booking/', auth.verifyTokenMiddleware, redis.getBookings, bookingController.getAllBookings)
     .get('/booking/:hotelId', auth.verifyTokenMiddleware, bookingController.getAllBookingsOnHotel)
     .get('/services/:id', auth.verifyTokenMiddleware, redis.getServices,serviceController.getServices)
     .post('/services', auth.verifyTokenMiddleware,serviceController.insertServices)
