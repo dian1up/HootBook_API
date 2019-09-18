@@ -13,7 +13,7 @@ route
     .post('/booking', auth.verifyTokenMiddleware, bookingController.book)
     .patch('/booking/:bookingId', auth.verifyTokenMiddleware, bookingController.checking_out)
     .get('/booking/', auth.verifyTokenMiddleware, redis.getBookings, bookingController.getAllBookings)
-    .get('/booking/:hotelId', auth.verifyTokenMiddleware, bookingController.getAllBookingsOnHotel)
+    .get('/booking/:hotelId', auth.verifyTokenMiddleware, redis.getBookingsOnHotel, bookingController.getAllBookingsOnHotel)
     .get('/services/:id', auth.verifyTokenMiddleware, redis.getServices,serviceController.getServices)
     .post('/services', auth.verifyTokenMiddleware,serviceController.insertServices)
     .delete('/services/:id', auth.verifyTokenMiddleware,serviceController.deleteServices)

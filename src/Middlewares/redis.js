@@ -28,5 +28,19 @@ module.exports = {
     }else{
       next()
     }
+  },
+  getBookingsOnHotel : (req, res, next) =>{
+    if(cache.hexists('bookings', req.params.hotelId)){
+      console.log('cache');
+      cache.hget('bookings', req.params.hotelId, (err,reply) =>{
+        if(reply){
+          return res.status(200).json(JSON.parse(reply))
+        }else{
+          next()
+        }
+      })
+    }else{
+      next()
+    }
   }
 }

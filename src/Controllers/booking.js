@@ -2,7 +2,7 @@ require('dotenv').config()
 const cache = require('../Configs/redis')
 const bookingModel = require('../Models/booking')
 
-refreshCache = () =>{
+refreshCache = (hotelId = null) =>{
   bookingModel.getAllBookings()
     .then(result => {
       let data = result.map(booking => {
@@ -18,10 +18,29 @@ refreshCache = () =>{
       cache.hset('bookings', 'all', JSON.stringify(response))
     })
     .catch(err => console.log(err))
+    if(hotelId){
+      bookingModel.getAllBookingsOnHotel(hotelId)
+      .then(result => {
+        let data = result.map(booking => {
+          let durationMilis = new Date(booking.check_out) - new Date(booking.check_in)
+          let days = durationMilis / (1000*60*60*24) + 1
+          booking.totalPayment = booking.price * days
+          return booking
+        })
+        const response = {
+          message: `get all bookings from hotel_id ${hotelId}`,
+          hotelId,
+          data
+        }
+        cache.hset('bookings', hotelId, JSON.stringify(response))
+      })
+      .catch(err => console.log(err))
+    }
 }
 
 module.exports = {
   book : (req, res) => {
+    const hotelId = req.body.hotel_id
     const data = {
       service_id: req.body.service_id,
       check_in: new Date(req.body.check_in),
@@ -36,7 +55,7 @@ module.exports = {
           message: 'Booked successfully',
           data, 
         }
-        refreshCache()
+        refreshCache(hotelId)
         return res.status(201).json(response)
       })
       .catch(err => {
@@ -58,6 +77,7 @@ module.exports = {
           hotelId,
           data
         }
+        cache.hset('bookings', hotelId, JSON.stringify(response))
         return res.status(200).json(response)
       })
       .catch(err => {
@@ -85,6 +105,7 @@ module.exports = {
       })
   },
   checking_out:(req, res) => {
+    const hotelId = req.body.hotel_id
     const data = {
       status : 1
     }
@@ -96,7 +117,7 @@ module.exports = {
             message : 'Check out success',
             data
           }
-          refreshCache()
+          refreshCache(hotelId)
           return res.status(200).json(response)
         } else {
           data.bookingId = req.params.bookingId
