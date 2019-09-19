@@ -9,6 +9,14 @@ const hash = (string) => {
   }
   
 module.exports={
+    updatePartner:(req, res) =>{
+        const data = req.body
+
+        userModel.updatePartner(data)
+            .then(result=>res.json(result))
+            .catch(err=>res.json(err))
+    },
+
     loginPartner:(req,res) => {
         const data = req.body
 

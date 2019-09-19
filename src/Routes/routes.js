@@ -8,6 +8,7 @@ route
     .post('/register/user', userController.registerUser)
     .post('/login/partner',userController.loginPartner)
     .post('/login/user', userController.loginUser)
+    .patch('/edit/partner', auth.verifyTokenMiddleware,userController.updatePartner)
     .get('/services/:id', auth.verifyTokenMiddleware,serviceController.getServices)
     .post('/services', auth.verifyTokenMiddleware,serviceController.insertServices)
     .delete('/services/:id', auth.verifyTokenMiddleware,serviceController.deleteServices)
