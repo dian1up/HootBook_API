@@ -13,10 +13,13 @@ module.exports={
                     for (let index = 0; index < result.length; index++) {
                         result[index].facilities =sqlToObj(result[index].facilities)
                     }
-                    res.status(200).json({
+                    console.log('get')
+                    const response = {
                         value:result,
                         message:'Successful'
-                    })
+                    }
+                    cache.hset('services', data.id, JSON.stringify(response))
+                    res.status(200).json(response)
                 } else {
                     res.status(404).json({message:'Not Found'})
                 }
@@ -28,9 +31,25 @@ module.exports={
         const data = req.body
         data.facilities=JSON.stringify(data.facilities)
         serviceModel.insertServices(data)            
-            .then(()=>{
+            .then((result)=>{
+                data.id = result.insertId
+                serviceModel.getServices({id:data.hotel_id})
+                    .then(result => {
+                        for (let index = 0; index < result.length; index++) {
+                            result[index].facilities =sqlToObj(result[index].facilities)
+                        }
+                        console.log('get')
+                        const response = {
+                            value:result,
+                            message:'Successful'
+                        }
+                        cache.hset('services', data.hotel_id, JSON.stringify(response))
+                    })
+                    .catch(err =>{
+                        console.log(err)
+                    })
                 res.status(200).json({
-                    message:'Update Successful'
+                    message:'Add Successful'
                 })
             })
             .catch(err=>res.json(err))
