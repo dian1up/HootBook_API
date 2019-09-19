@@ -29,7 +29,12 @@ module.exports={
                     const payload = {
                       id: result[0].id,  
                       name: result[0].name,
+                      company: result[0].company,
                       email: result[0].email,
+                      address: result[0].address,
+                      image: result[0].image,
+                      latitude: result[0].latitude,
+                      longitude: result[0].longitude,
                       level: 'partner',
                     }
                     jwt.sign(payload, process.env.SECRET,(err, result)=>{
@@ -113,6 +118,7 @@ module.exports={
                         id: result[0].id,
                         name: result[0].name,
                         email: result[0].email,
+                        image: result[0].image,
                         level: 'user',
                     }
                     const jwt = require('jsonwebtoken')
