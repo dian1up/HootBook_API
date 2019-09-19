@@ -12,10 +12,7 @@ module.exports={
                     for (let index = 0; index < result.length; index++) {
                         result[index].facilities =sqlToObj(result[index].facilities)
                     }
-                    res.status(200).json({
-                        value:result,
-                        message:'Successful'
-                    })
+                    res.status(200).json(result)
                 } else {
                     res.status(404).json({message:'Not Found'})
                 }
@@ -34,11 +31,7 @@ module.exports={
                         result[index].facilities =sqlToObj(result[index].facilities)
                     }
                     console.log('get')
-                    const response = {
-                        value:result,
-                        message:'Successful'
-                    }
-                    cache.hset('services', data.id, JSON.stringify(response))
+                    cache.hset('services', data.id, JSON.stringify(result))
                     res.status(200).json(response)
                 } else {
                     res.status(404).json({message:'Not Found'})
@@ -59,11 +52,7 @@ module.exports={
                             result[index].facilities =sqlToObj(result[index].facilities)
                         }
                         console.log('get')
-                        const response = {
-                            value:result,
-                            message:'Successful'
-                        }
-                        cache.hset('services', data.hotel_id, JSON.stringify(response))
+                        cache.hset('services', data.hotel_id, JSON.stringify(result))
                     })
                     .catch(err =>{
                         console.log(err)
