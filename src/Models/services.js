@@ -4,7 +4,7 @@ module.exports={
     getAllServices:()=>{
         return new Promise((resolve, reject)=>{
             conn.query(`SELECT services.*, partners.company as company,\
-                        partners.email as email, partners.latitude as latitude,\
+                        partners.email as email, partners.address as address, partners.latitude as latitude,\
                         partners.longitude as longitude FROM partners,services\
                         WHERE partners.id=services.hotel_id`, (err, result)=>{
                 if (!err) {
