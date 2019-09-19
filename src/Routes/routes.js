@@ -10,6 +10,7 @@ route
     .post('/register/user', userController.registerUser)
     .post('/login/partner',userController.loginPartner)
     .post('/login/user', userController.loginUser)
+    .patch('/edit/partner', auth.verifyTokenMiddleware,userController.updatePartner)
     .post('/booking', auth.verifyTokenMiddleware, bookingController.book)
     .patch('/booking/:bookingId', auth.verifyTokenMiddleware, bookingController.checking_out)
     .get('/booking/', auth.verifyTokenMiddleware, redis.getBookings, bookingController.getAllBookings)
