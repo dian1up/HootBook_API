@@ -5,6 +5,26 @@ const sqlToObj=(data)=>{
 }
 
 module.exports={
+    getAllServices:(req, res) => {
+        serviceModel.getAllServices()
+            .then(result=>{
+                if (result.length!==0) {
+                    for (let index = 0; index < result.length; index++) {
+                        result[index].facilities =sqlToObj(result[index].facilities)
+                    }
+                    res.status(200).json({
+                        value:result,
+                        message:'Successful'
+                    })
+                } else {
+                    res.status(404).json({message:'Not Found'})
+                }
+             
+                
+            })
+            .catch(err=>res.json(err))
+    },
+
     getServices:(req, res) => {
         const data = req.params
         serviceModel.getServices(data)

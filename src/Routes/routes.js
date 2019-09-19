@@ -10,6 +10,7 @@ route
     .post('/login/user', userController.loginUser)
     .patch('/edit/partner', auth.verifyTokenMiddleware,userController.updatePartner)
     .get('/services/:id', auth.verifyTokenMiddleware,serviceController.getServices)
+    .get('/services', serviceController.getServices)
     .post('/services', auth.verifyTokenMiddleware,serviceController.insertServices)
     .delete('/services/:id', auth.verifyTokenMiddleware,serviceController.deleteServices)
     .patch('/services', auth.verifyTokenMiddleware,serviceController.updateServices)
