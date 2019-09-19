@@ -8,7 +8,7 @@ module.exports={
             conn.query(`SELECT services.*, partners.company as company,\
                         partners.email as email, partners.latitude as latitude,\
                         partners.longitude as longitude FROM partners,services\
-                        WHERE partners.id=services.hotel_ids`, data.id, (err, result)=>{
+                        WHERE partners.id=services.hotel_id`, data.id, (err, result)=>{
                 if (!err) {
                     resolve(result)
                 } else {
