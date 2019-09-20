@@ -15,7 +15,7 @@ module.exports={
     },
     getPayment:(data)=>{
         return new Promise((resolve, reject)=>{
-            conn.query(`SELECT * FROM payment WHERE ? AND status = PENDING`, data, (err,result)=>{
+            conn.query(`SELECT * FROM payment WHERE ? AND status = 'PENDING'`, data, (err,result)=>{
                 if (!err) {
                     resolve(result)
                 } else {
