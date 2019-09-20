@@ -15,7 +15,7 @@ route
     .get('/services', serviceController.getAllServices)
     .post('/booking', auth.verifyTokenMiddleware, bookingController.book)
     .patch('/booking/:bookingId', auth.verifyTokenMiddleware, bookingController.checking_out)
-    .get('/profile/partner', auth.verifyTokenMiddleware, userController.profilePartner)
+    .get('/profile/partner/:id', auth.verifyTokenMiddleware, userController.profilePartner)
     .get('/booking/', auth.verifyTokenMiddleware, redis.getBookings, bookingController.getAllBookings)
     .get('/booking/:hotelId', auth.verifyTokenMiddleware, redis.getBookingsOnHotel, bookingController.getAllBookingsOnHotel)
     .post('/services', auth.verifyTokenMiddleware,serviceController.insertServices)
