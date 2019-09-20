@@ -22,6 +22,17 @@ module.exports = {
       })
     })
   },
+  getBookingHistory: (user_id) => {
+    return new Promise((resolve,reject)=>{
+      conn.query(`SELECT bookings.*, services.id AS service_id, services.room_type, services.price FROM bookings JOIN services ON bookings.service_id = services.id WHERE user_id = ?`, user_id, (err, result)=>{
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
   getAllBookingsOnHotel: (hotel_id) => {
     return new Promise((resolve,reject)=>{
       conn.query(`SELECT bookings.*, services.id AS service_id, services.room_type, services.price FROM bookings JOIN services ON bookings.service_id = services.id WHERE services.hotel_id = ?`, hotel_id, (err, result)=>{

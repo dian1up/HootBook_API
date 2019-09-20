@@ -128,6 +128,25 @@ module.exports = {
         res.status(500).json({message:err})
       })
   },
+  getBookingHistory : (req, res) => {
+    bookingModel.getBookingHistory(req.user_id)
+      .then(result => {
+        let data = result.map(booking => {
+          let durationMilis = new Date(booking.check_out) - new Date(booking.check_in)
+          let days = durationMilis / (1000*60*60*24) + 1
+          booking.totalPayment = booking.price * days
+          return booking
+        })
+        const response = {
+          message: `get booking history`,
+          data
+        }
+        return res.status(200).json(response)
+      })
+      .catch(err => {
+        res.status(500).json({message:err})
+      })
+  },
   checking_out:(req, res) => {
     const hotelId = req.body.hotel_id
     const data = {
