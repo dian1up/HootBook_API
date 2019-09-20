@@ -2,7 +2,7 @@ require('dotenv').config()
 module.exports = {
   verifyTokenMiddleware: (req, res, next) => {
     const bearerHeader = req.headers['authorization']
-    console.log(bearerHeader)
+    console.log(req.headers, bearerHeader)
     if (bearerHeader !== undefined) {
       const jwt = require('jsonwebtoken')
       const bearer = bearerHeader.split(' ')
