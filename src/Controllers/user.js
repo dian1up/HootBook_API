@@ -18,8 +18,8 @@ module.exports={
     },
 
     profilePartner:(req, res) =>{
-        const data = req.body
-
+        const data = req.params
+        console.log('input data = ',data)
         userModel.profilePartner(data)
             .then(result=>res.json(result))
             .catch(err=>res.json(err))
