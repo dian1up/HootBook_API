@@ -17,6 +17,14 @@ module.exports={
             .catch(err=>res.json(err))
     },
 
+    profilePartner:(req, res) =>{
+        const data = req.body
+
+        userModel.profilePartner(data)
+            .then(result=>res.json(result))
+            .catch(err=>res.json(err))
+    },
+
     loginPartner:(req,res) => {
         const data = req.body
 

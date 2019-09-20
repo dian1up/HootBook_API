@@ -1,6 +1,19 @@
 const conn = require('../Configs/db')
 
 module.exports={
+
+    profilePartner:(data)=>{
+      return new Promise((resolve, reject)=>{
+        conn.query(`SELECT * FROM partners WHERE ?`,data, (err, result)=>{
+          if(!err){
+            resolve(result)
+          }else{
+            reject(err)
+          }
+        })
+      })
+    },
+
     updatePartner:(data)=>{
       return new Promise((resolve, reject)=>{
         conn.query(`UPDATE partners SET ? WHERE id=?`, [data, data.id], (err, result)=>{
