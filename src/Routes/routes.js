@@ -9,6 +9,7 @@ const auth = require('../Middlewares/auth')
 route
     .post('/payment/create',paymentController.insertPayment)
     .get('/payment/:id_transaction',paymentController.getPayment)
+    .post('/payment/:id_transaction',paymentController.payPayment)
     .post('/register/partner',userController.registerPartner)
     .post('/register/user', userController.registerUser)
     .post('/login/partner',userController.loginPartner)

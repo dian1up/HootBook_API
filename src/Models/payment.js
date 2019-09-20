@@ -23,5 +23,16 @@ module.exports={
                 }  
             })
         })
+    },
+    payPayment:(id,data)=>{
+        return new Promise((resolve, reject)=>{
+            conn.query(`UPDATE payment SET ? WHERE ?`,[data, id], (err, result)=>{
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(err)
+                } 
+            })
+        })
     }
 }

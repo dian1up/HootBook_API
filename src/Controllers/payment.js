@@ -21,5 +21,12 @@ module.exports={
                 res.status(200).json(result)
             })
             .catch(err=>res.status(500).json({message:err}))
+    },
+    payPayment:(req, res)=>{
+        const id = req.params
+        const data = req.body
+        paymentModel.payPayment(id,data)
+            .then(result=>res.status(200).json({message:result}))
+            .catch(err=>res.status(500).json({message:err}))
     }           
 }
