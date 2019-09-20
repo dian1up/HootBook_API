@@ -17,9 +17,9 @@ module.exports={
         const data = req.params
         paymentModel.getPayment(data)
             .then(result=>{
-                result.data=JSON.parse(result.data)
+                // result.data=JSON.parse(result.data)
                 res.status(200).json(result)
             })
-            .catch(err=>res.status(500).json({message:'error'}))
+            .catch(err=>res.status(500).json({message:err}))
     }           
 }
