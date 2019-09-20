@@ -127,7 +127,6 @@ module.exports={
                         id: result[0].id,
                         name: result[0].name,
                         email: result[0].email,
-                        image: result[0].image,
                         level: 'user',
                     }
                     const jwt = require('jsonwebtoken')
@@ -143,6 +142,16 @@ module.exports={
                     } else { return res.status(404).json({message: 'Email or Password is wrong'}) }
                 }
             )
+            .catch(err => {
+                console.error(err)
+                return res.status(500).json({message:err})
+            })
+    },
+    getUserProfile: (req, res) => {
+        userModel.getUserProfile(req.id)
+            .then(data => {
+                res.json(data)
+            })
             .catch(err => {
                 console.error(err)
                 return res.status(500).json({message:err})
