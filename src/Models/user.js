@@ -4,6 +4,8 @@ module.exports={
 
     profilePartner:(data)=>{
       return new Promise((resolve, reject)=>{
+        console.log('input data = ',data)
+        
         conn.query(`SELECT * FROM partners WHERE ?`,data, (err, result)=>{
           if(!err){
             resolve(result)
