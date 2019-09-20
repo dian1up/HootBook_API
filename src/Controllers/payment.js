@@ -18,7 +18,7 @@ module.exports={
         paymentModel.getPayment(data)
             .then(result=>{
                 // result.data=JSON.parse(result.data)
-                res.status(200).json(result)
+                res.status(200).json(result.data)
             })
             .catch(err=>res.status(500).json({message:err}))
     }           
