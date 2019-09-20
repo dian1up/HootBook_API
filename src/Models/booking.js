@@ -24,7 +24,7 @@ module.exports = {
   },
   getBookingHistory: (user_id) => {
     return new Promise((resolve,reject)=>{
-      conn.query(`SELECT bookings.*, services.id AS service_id, services.room_type, services.price FROM bookings JOIN services ON bookings.service_id = services.id WHERE user_id = ?`, user_id, (err, result)=>{
+      conn.query(`SELECT bookings.*, services.id AS service_id, services.room_type, services.price, payment.status as status FROM bookings, services, payment  WHERE user_id = ? AND bookings.service_id = services.id AND payment.id_transaction=bookings.id_transaction`, user_id, (err, result)=>{
         if (!err) {
           resolve(result)
         } else {
