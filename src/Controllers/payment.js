@@ -9,7 +9,7 @@ module.exports={
     insertPayment:(req, res) =>{
         const input = req.body
         input.data=JSON.stringify(input.data)
-        paymentModel.insertPayment(data) 
+        paymentModel.insertPayment(input) 
             .then(result=>res.status(200).json({message:'Sukses'}))
             .catch(err=>console.log(err))
     }           
