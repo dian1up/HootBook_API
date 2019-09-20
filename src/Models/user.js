@@ -78,6 +78,13 @@ module.exports={
         })
       })
     },
+    getUserProfile:(id) =>{
+      return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM users WHERE id = ?', id, (err, result) => {
+          if (err) { reject(err) } else { resolve(result) }
+        })
+      })
+    },
     loginUser:(email, password) =>{
       return new Promise((resolve, reject) => {
         conn.query('SELECT * FROM users WHERE email = ? AND password = ?', [email,password], (err, result) => {
