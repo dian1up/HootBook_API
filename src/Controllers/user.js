@@ -148,7 +148,7 @@ module.exports={
             })
     },
     getUserProfile: (req, res) => {
-        userModel.getUserProfile(req.id)
+        userModel.getUserProfile(req.user_id)
             .then(data => {
                 res.json(data)
             })
