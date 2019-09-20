@@ -8,6 +8,7 @@ const redis = require('../Middlewares/redis')
 const auth = require('../Middlewares/auth')
 route
     .post('/payment/create',paymentController.insertPayment)
+    .get('/payment/:id_transaction',paymentController.getPayment)
     .post('/register/partner',userController.registerPartner)
     .post('/register/user', userController.registerUser)
     .post('/login/partner',userController.loginPartner)

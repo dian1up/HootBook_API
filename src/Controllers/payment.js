@@ -12,5 +12,13 @@ module.exports={
         paymentModel.insertPayment(input) 
             .then(result=>res.status(200).json({message:'Sukses'}))
             .catch(err=>console.log(err))
+    },
+    getPayment:(req, res)=>{
+        const data = req.params
+        paymentModel.getPayment(data)
+            .then(result=>{
+                res.status(200).json(result)
+            })
+            .catch(err=>res.status(500).json({message:'error'}))
     }           
 }

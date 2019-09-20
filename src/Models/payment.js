@@ -13,4 +13,15 @@ module.exports={
             })
         })
     },
+    getPayment:(data)=>{
+        return new Promise((resolve, reject)=>{
+            conn.query(`SELECT * FROM payment WHERE ?`, data, (err,result)=>{
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(err)
+                }  
+            })
+        })
+    }
 }
