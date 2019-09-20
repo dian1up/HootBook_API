@@ -99,7 +99,8 @@ module.exports={
             name: req.body.name,
             password: req.body.password,
             email: req.body.email,
-            created_at: new Date()
+            created_at: new Date(),
+            image:'https://firebasestorage.googleapis.com/v0/b/yu-chat.appspot.com/o/User.png?alt=media&token=79e7b969-046c-4657-9558-b65a1812e388'
         }
         userModel.cekUser(userData.email)
             .then(result =>{
@@ -151,6 +152,7 @@ module.exports={
         const data = {
             name: req.body.name,
             email: req.body.email,
+            image: req.body.image,
         }
         userModel.updateUser(req.params.id,data)
         .then(result => {
