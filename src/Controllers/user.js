@@ -160,7 +160,6 @@ module.exports={
     updateUser: (req, res) => {
         const data = {
             name: req.body.name,
-            email: req.body.email,
             image: req.body.image,
         }
         userModel.updateUser(req.params.id,data)
