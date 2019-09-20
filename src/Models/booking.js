@@ -33,6 +33,17 @@ module.exports = {
       })
     })
   },
+  getAllBookingsOnService: (service_id) => {
+    return new Promise((resolve,reject)=>{
+      conn.query(`SELECT bookings.*, services.id AS service_id, services.room_type, services.price FROM bookings JOIN services ON bookings.service_id = services.id WHERE services.id = ?`, service_id, (err, result)=>{
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
   updateBooking: (id,data) =>{
     return new Promise((resolve,reject)=>{
       conn.query(`UPDATE bookings SET ? WHERE id = ?`, [data, id], (err, result)=>{
