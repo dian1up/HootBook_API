@@ -84,6 +84,27 @@ module.exports = {
         res.status(500).json({message:err})
       })
   },
+  getAllBookingsOnService : (req, res) => {
+    const serviceId = req.params.serviceId
+    bookingModel.getAllBookingsOnService(serviceId)
+      .then(result => {
+        let data = result.map(booking => {
+          let durationMilis = new Date(booking.check_out) - new Date(booking.check_in)
+          let days = durationMilis / (1000*60*60*24) + 1
+          booking.totalPayment = booking.price * days
+          return booking
+        })
+        const response = {
+          message: `get all bookings from hotel_id ${serviceId}`,
+          serviceId,
+          data
+        }
+        return res.status(200).json(response)
+      })
+      .catch(err => {
+        res.status(500).json({message:err})
+      })
+  },
   getAllBookings : (req, res) => {
     bookingModel.getAllBookings()
       .then(result => {
