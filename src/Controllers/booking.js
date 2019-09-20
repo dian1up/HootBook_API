@@ -51,6 +51,9 @@ module.exports = {
     bookingModel.book(data)
       .then(result => {
         data.id = result.insertId
+        let durationMilis = data.check_out - data.check_in
+        let days = durationMilis / (1000*60*60*24) + 1
+        data.totalPayment = req.body.price * days
         const response = {
           message: 'Booked successfully',
           data, 
